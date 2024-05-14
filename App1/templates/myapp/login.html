@@ -1,0 +1,31 @@
+{% extends "myapp/base.html" %}
+   
+{% block title %} Login  {% endblock title %}
+
+
+{% block content %}
+
+    <br><br>
+    <h2> Login</h2>
+    <br>
+    {% if status == "Success" %}  
+    <div class="alert alert-success text-start" role="alert"> {{status}} : {{status_msg}}     </div>
+    {% elif status == "Error" %}
+    <div class="alert alert-danger text-start" role="alert"> {{status}} : {{status_msg}}     </div>
+      {% if nouser %}<div class="text-start"> Please create account: <a class="btn btn-primary" href="{% url 'register' %}" role="button">Register</a></div>{% endif %}
+      {% if incorrectpwd %}<div class="text-start"> Please reset password: <a class="btn btn-primary" href="#" role="button">Reset Password</a></div>{% endif %}
+      <br><br>
+    {% endif %}
+    <form class="text-start" method="POST">
+        {% csrf_token %}
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email">
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="pwd">Password</label>
+            <input type="password" class="form-control" id="pwd" name="pwd">
+          </div>
+          <center><button type="submit" class="btn btn-primary">Log in</button></center>
+    </form>
+{% endblock content %}

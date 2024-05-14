@@ -1,0 +1,28 @@
+{% extends "myapp/base.html" %}
+   
+{% block title %} Home  {% endblock title %}
+
+
+{% block content %}
+
+
+    <table class="table caption-top table-striped table-hover table-sm">
+        <caption class="text-light ">List of Tracking</caption>
+        <tr>
+            <th>Tracking ID</th>
+            <th>Customer Name</th>
+            <th>Status</th>
+            <th>Remark</th>
+        </tr>
+        {% for q in questions %}
+        <tr>
+            <td>{{q.tracking_id}}</td>
+            <td>{{q.cust_name}}</td>
+            <td>{{q.status}}</td>
+            <!-- <td><a href="% url 'remark' q.id %" class="btn btn-primary">Remark</a></td>  not use default key field "id" bcuz manual specify key field-->   
+            <td><a href="{% url 'remark' q.tracking_id %}" class="btn {% if q.remark %} btn-success {% else %} btn-warning {% endif %}>">Remark</a></td>
+        </tr>
+        {% endfor %}        
+    </table>
+
+  {% endblock content %}

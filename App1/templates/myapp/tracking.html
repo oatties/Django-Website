@@ -1,0 +1,25 @@
+{% extends "myapp/base.html" %}
+   
+{% block title %} Home  {% endblock title %}
+
+
+{% block content %}
+
+
+    <table class="table caption-top table-striped table-hover table-sm">
+        <caption class="text-light ">List of Tracking</caption>
+        <tr>
+            <th>Tracking ID</th>
+            <th>Customer Name</th>
+            <th>Status</th>
+        </tr>
+        {% for tr in tracking_list %}
+        <tr>
+            <td>{{tr.id}}</td>
+            <td>{{tr.name}}</td>
+            <td>{{tr.status}}</td>
+        </tr>
+        {% endfor %}        
+    </table>
+   
+  {% endblock content %}

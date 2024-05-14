@@ -1,0 +1,90 @@
+{% extends "myapp/base.html" %}
+
+{% block js %}
+
+<script type="text/javaScript">
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function () {
+    'use strict'
+    console.log("HI");
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })();
+</script>
+ {% endblock js%} 
+
+
+{% block title %} Case Register  {% endblock title %}
+
+
+{% block content %}
+    {% if status == "Success" %}  
+    <div class="alert alert-success text-start" role="alert"> {{status}} : {{status_msg}}     </div>
+    {% elif status == "Error" %}
+    <div class="alert alert-danger text-start" role="alert"> {{status}} : {{status_msg}}     </div>
+    {% endif %}
+    <!-- <form class="text-start" method="POST"> -->
+    <form class="text-start needs-validation"  novalidate>      
+      <!-- use bs5 js script as validator -->
+        {% csrf_token %}
+<!--         <div class="mb-3">
+            <label for="case_id" class="form-label">Case ID</label>
+            <input type="text" class="form-control" id="case_id" name="case_id" aria-describedby="case_id_help">
+            <div id="case_id_help" class="form-text text-danger">*Case ID is required</div>
+          </div> -->
+          <div class="mb-3">
+            <label for="case_fname" class="form-label">Firstname</label>
+            <input type="text" class="form-control" id="case_fname" name="case_fname" aria-describedby="case_fname_help" required>
+            <div id="case_fname_help" class="form-text text-danger">Firstname is required</div>  
+            <div class="valid-feedback">good</div>          
+            <div class="invalid-feedback">โปรดระบุชื่อของท่าน</div>          
+          </div>
+          <div class="mb-3">
+            <label for="case_lname" class="form-label">Lastname</label>
+            <input type="text" class="form-control" id="case_lname" name="case_lname" aria-describedby="case_lname_help" required>
+            <div id="case_lname_help" class="form-text text-danger">Lastname is required</div>          
+            <div class="valid-feedback"></div>          
+            <div class="invalid-feedback">โปรดระบุนามสกุลของท่าน</div>      
+          </div>          
+          <div class="mb-3">
+              <label for="case_bd" class="form-label">Birth Date</label>
+              <input type="date" class="form-control" id="case_bd" name="case_bd" required>
+              <div class="valid-feedback"></div>          
+              <div class="invalid-feedback">โปรดระบุวันเกิด</div>    
+          </div>
+          <div class="mb-3">
+              <label for="case_addr" class="form-label">Address</label>
+              <textarea class="form-control" id="case_addr" name="case_addr" rows="3" required></textarea>
+              <div class="valid-feedback"></div>          
+              <div class="invalid-feedback">โปรดระบุที่อยู่</div>    
+          </div>        
+          <div class="mb-3">
+            <label for="case_tel" class="form-label">Tel</label>
+            <input type="tel" class="form-control" id="case_tel" name="case_tel" required>
+            <div class="valid-feedback"></div>          
+            <div class="invalid-feedback">โปรดระบุเบอร์โทรศัพท์</div>    
+        </div>                    
+          <div class="mb-3">            
+            <label class="form-label" for="tracking_status">Status</label>
+            <select class="form-select" id="tracking_status" name="tracking_status" aria-label="Default select example">
+                {% for key , val in tracking_status.items %}
+                    <option value="{{ key }}" {% if key == tracking_status %} selected {% endif %}>{{val}}</option>
+                {% endfor%}
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Item</button>
+    </form>
+{% endblock content %}

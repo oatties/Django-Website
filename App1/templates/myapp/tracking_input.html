@@ -1,0 +1,33 @@
+{% extends "myapp/base.html" %}
+   
+{% block title %} Home  {% endblock title %}
+
+
+{% block content %}
+    {% if status == "Success" %}  
+    <div class="alert alert-success text-start" role="alert"> {{status}} : {{status_msg}}     </div>
+    {% elif status == "Error" %}
+    <div class="alert alert-danger text-start" role="alert"> {{status}} : {{status_msg}}     </div>
+    {% endif %}
+    <form class="text-start" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="tracking_id" class="form-label">Tracking ID</label>
+            <input type="text" class="form-control" id="tracking_id" name="tracking_id" aria-describedby="tracking_id_help">
+            <div id="tracking_id_help" class="form-text text-danger">*Tracking number is required</div>
+          </div>
+          <div class="mb-3">
+            <label for="cust_name" class="form-label">Customer Name</label>
+            <input type="text" class="form-control" id="cust_name" name="cust_name">
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="tracking_status">Status</label>
+            <select class="form-select" id="tracking_status" name="tracking_status" aria-label="Default select example">
+                {% for key , val in tracking_status.items %}
+                    <option value="{{ key }}" {% if key == tracking_status %} selected {% endif %}>{{val}}</option>
+                {% endfor%}
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Item</button>
+    </form>
+{% endblock content %}

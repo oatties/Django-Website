@@ -1,0 +1,44 @@
+{% extends "myapp/base.html" %}
+   
+{% block title %} หน้าสำหรับ เพิ่ม Remark  {% endblock title %}
+
+
+{% block content %}
+    {% if status == "Success" %}  
+    <div class="alert alert-success text-start" role="alert"> {{status}} : {{status_msg}}     </div>
+    {% elif status == "Error" %}
+    <div class="alert alert-danger text-start" role="alert"> {{status}} : {{status_msg}}     </div>
+    {% endif %}
+    
+    <div>
+      <center>
+
+        <h6> Tracking ID: {{ row.tracking_id }}</h6>
+        <h6> Customer Name: {{ row.cust_name }}</h6>
+        <h6> Status: {{ row.status }}</h6>
+        <hr>  
+        {% if row.remark %} 
+        <h2> ((Remark))</h2>
+        <p>{{ row.remark }}</p><br/>
+        <hr>    
+        {% endif %}          
+      </center>               
+    </div>
+
+
+    <form class="text-start" method="POST">
+        {% csrf_token %}
+          <div class="mb-3">
+            <label for="remark" class="form-label">Remark</label>
+            <input type="text" class="form-control" id="remark" name="remark">
+          </div>
+
+          <button type="submit" class="btn btn-primary">Add Item</button>
+    </form>
+{% endblock content %}
+
+
+
+<th>Tracking ID</th>
+<th></th>
+<th></th>
